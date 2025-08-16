@@ -1,0 +1,8 @@
+:root{--fg:#00ff99;--border:#4b0a0a}*{box-sizing:border-box}
+body{margin:0;font-family:'Courier New',monospace;background:#000 url('/terminal/assets/img/bg_mobius_red.svg') center/cover fixed no-repeat;color:var(--fg)}
+.codex-header{display:flex;gap:12px;align-items:center;justify-content:center;padding:14px 10px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.5);position:sticky;top:0}
+.codex-header .back{position:absolute;left:12px;color:var(--fg);text-decoration:none;border:1px solid var(--fg);padding:4px 8px;border-radius:6px;background:rgba(0,0,0,.35)}
+.badge{position:absolute;right:12px;background:#2a050e;border:1px solid var(--border);padding:2px 8px;border-radius:6px}
+.codex-main{max-width:1100px;margin:0 auto;padding:16px}.panel{border:1px solid var(--border);padding:12px 14px;border-radius:10px;background:rgba(26,0,6,.75);margin:14px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:14px 0}.card{border:1px solid var(--border);padding:12px;border-radius:10px;background:rgba(26,0,6,.7)}
+.card h3{margin:6px 0 10px 0}a{color:#93c5fd}

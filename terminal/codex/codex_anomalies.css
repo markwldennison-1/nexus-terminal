@@ -1,0 +1,5 @@
+.ana-sigil{display:block;margin:6px auto 10px auto;max-width:120px;opacity:.92;filter:drop-shadow(0 0 10px rgba(255,59,110,.25))}
+.ana-audio{display:none}
+.ana-panel{position:relative}
+.ana-panel::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, rgba(255,55,95,.12), transparent 52%);opacity:0;animation:anaRipple 1200ms ease-out forwards}
+@keyframes anaRipple{0%{opacity:0;transform:scale(.9)}20%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}

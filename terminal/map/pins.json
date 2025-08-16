@@ -1,0 +1,82 @@
+[
+  {
+    "id": "pin_self_casting_glyph",
+    "title": "Self-Casting Glyph",
+    "section": "3.5.3",
+    "href": "/terminal/codex_anomalies/self_casting_glyph.html",
+    "x": 22,
+    "y": 38
+  },
+  {
+    "id": "pin_jensen_vanish",
+    "title": "Jensen\u2019s Vanishing Timestamp",
+    "section": "4.1.2",
+    "href": "/terminal/codex_anomalies/jensen_vanish.html",
+    "x": 12,
+    "y": 72
+  },
+  {
+    "id": "pin_untranslated_whisper",
+    "title": "Untranslated Whisper",
+    "section": "2.4.3",
+    "href": "/terminal/codex_anomalies/untranslated_whisper.html",
+    "x": 66,
+    "y": 14
+  },
+  {
+    "id": "pin_borrowed_memory",
+    "title": "Memory That Wasn\u2019t Theirs",
+    "section": "4.3.1",
+    "href": "/terminal/codex_anomalies/borrowed_memory.html",
+    "x": 58,
+    "y": 44
+  },
+  {
+    "id": "pin_ethos_prediction",
+    "title": "ETHOS\u2019s Impossible Prediction",
+    "section": "3.4.2",
+    "href": "/terminal/codex_anomalies/ethos_prediction.html",
+    "x": 80,
+    "y": 20
+  },
+  {
+    "id": "pin_fractured_loop",
+    "title": "Fractured Mobius Loop",
+    "section": "5.1.1",
+    "href": "/terminal/codex_anomalies/fractured_loop.html",
+    "x": 50,
+    "y": 50
+  },
+  {
+    "id": "pin_hesitant_drone",
+    "title": "Drone That Hesitated",
+    "section": "4.2b",
+    "href": "/terminal/codex_anomalies/hesitant_drone.html",
+    "x": 34,
+    "y": 60
+  },
+  {
+    "id": "pin_null_codex_page",
+    "title": "Null Codex Page",
+    "section": "2.1b",
+    "href": "/terminal/codex_anomalies/null_codex_page.html",
+    "x": 72,
+    "y": 36
+  },
+  {
+    "id": "pin_noctis_slip",
+    "title": "Noctis\u2019s Slip",
+    "section": "4.3",
+    "href": "/terminal/codex_anomalies/noctis_slip.html",
+    "x": 62,
+    "y": 58
+  },
+  {
+    "id": "pin_persistent_glyph",
+    "title": "Glyph That Won\u2019t Forget",
+    "section": "5.3.4",
+    "href": "/terminal/codex_anomalies/persistent_glyph.html",
+    "x": 44,
+    "y": 74
+  }
+]

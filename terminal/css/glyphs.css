@@ -1,0 +1,10 @@
+#glyph-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;pointer-events:none;z-index:9999}
+.glyph-ripple{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, rgba(255,55,95,0.35), rgba(0,0,0,0) 55%);filter:blur(6px);animation:ripplePulse 1600ms ease-out forwards}
+@keyframes ripplePulse{0%{opacity:0;transform:scale(.85)}20%{opacity:.8;transform:scale(1)}60%{opacity:.55;transform:scale(1.25)}100%{opacity:0;transform:scale(1.6)}}
+.glyph-sigil{position:relative;width:min(52vmin,520px);height:min(52vmin,520px);display:grid;place-items:center;filter:drop-shadow(0 0 16px rgba(255,55,95,.35))}
+.glyph-sigil svg *{stroke:#ff3b6e;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(255,59,110,.45))}
+@keyframes mobiusSpin{0%{transform:rotateX(65deg) rotate(0)}50%{transform:rotateX(65deg) rotate(180deg)}100%{transform:rotateX(65deg) rotate(360deg)}}
+.sigil-animate{transform-style:preserve-3d;animation:mobiusSpin 1400ms linear forwards}
+@keyframes rackSnap{0%{transform:scale(.94)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+.rack-snap{animation:rackSnap 260ms cubic-bezier(.2,1,.2,1) 280ms both}
+.glyph-caption{position:absolute;bottom:-3.2rem;width:100%;text-align:center;color:#bfffe6;font-family:"Courier New",monospace;font-size:clamp(12px,2.1vmin,16px);text-shadow:0 0 8px rgba(0,255,153,.25)}

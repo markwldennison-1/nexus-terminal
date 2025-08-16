@@ -1,0 +1,7 @@
+:root{--fg:#00ff99}*{box-sizing:border-box}body{font-family:system-ui,Segoe UI,Arial,sans-serif;margin:0;color:#e5e7eb}
+.bg-red-grid{background:#000 url('/terminal/assets/img/bg_mobius_red.svg') center/cover fixed no-repeat;min-height:100vh;position:relative;overflow-x:hidden}
+header{padding:32px 16px;text-align:center;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+header h1{margin:0 0 6px 0}nav a{color:#ff9ab0;margin:0 8px;text-decoration:none;cursor:pointer}
+main{max-width:900px;margin:0 auto;padding:24px}code{background:#111827;color:#93c5fd;padding:2px 6px;border-radius:6px}a{color:#93c5fd}
+.bg-red-grid::after{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% 80%, rgba(255,55,95,.18), transparent 45%);pointer-events:none;animation:breath 3.2s ease-in-out infinite}
+@keyframes breath{0%,100%{opacity:.25}50%{opacity:.6}}

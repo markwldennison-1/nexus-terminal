@@ -1,0 +1,12 @@
+:root{--fg:#00ff99;--pulse:#ff375f}*{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
+html,body{height:100%;margin:0;touch-action:manipulation}body{font-family:'Courier New',monospace;color:var(--fg);background:#000;overflow:hidden}
+.bg-red-grid{background:#000 url('/terminal/assets/img/bg_mobius_red.svg') center/cover fixed no-repeat}
+#lock-screen{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%;gap:10px}
+#passphrase{background:#000;border:none;border-bottom:2px solid var(--fg);color:var(--fg);font-size:1.15rem;outline:none;text-align:center;padding:8px;letter-spacing:.5px}
+#unlockBtn{border:1px solid var(--fg);background:rgba(0,0,0,.35);color:var(--fg);padding:6px 10px;border-radius:8px;cursor:pointer}
+#terminal{display:none;position:relative;z-index:1;height:100%;padding:20px;white-space:pre-wrap;overflow-y:auto;text-shadow:0 0 6px rgba(0,255,153,.25)}
+#cmdline{position:fixed;bottom:6px;left:8px;width:1px;height:1px;opacity:0.01;color:transparent;background:transparent;border:0;outline:none}
+#back-home, #about-link, #codex-link, .level-tag{position:fixed;z-index:5;opacity:.9}#back-home{right:12px;bottom:10px}#about-link{right:12px;bottom:74px}#codex-link{right:12px;bottom:42px}.level-tag{left:12px;bottom:10px}
+.toolbar-btn{color:var(--fg);text-decoration:none;border:1px solid var(--fg);padding:4px 8px;border-radius:6px;background:rgba(0,0,0,.35)}
+.pulse::after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 85%, rgba(255,55,95,.28), transparent 40%);animation:pulseFade .2s ease-out}
+@keyframes pulseFade{from{opacity:.9}to{opacity:0}}
