@@ -4,44 +4,35 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Codex — Nexus of Shadows</title>
-  <!-- Global styles (grid background, base typography) -->
+
+  <!-- Global styles -->
   <link rel="stylesheet" href="/css/home.css">
+
   <style>
-    /* Page-local styling */
-    body { font-family: "Courier New", monospace; color: #00ff99; }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
-    .panel {
-      border: 1px solid #4b0a0a;
-      padding: 12px 14px;
-      border-radius: 10px;
-      background: rgba(26,0,6,.75);
-      margin: 14px 0;
-      box-shadow: 0 0 30px rgba(255,55,95,.08) inset;
-    }
-    h1, h2 { margin: 0 0 10px 0; }
-    a { color: #93c5fd; text-decoration: none; }
-    a:hover, a:focus { text-decoration: underline; }
+    body{font-family:"Courier New",monospace;color:#00ff99}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+    a{color:#93c5fd;text-decoration:none}
+    a:hover,a:focus{text-decoration:underline}
+    .panel{border:1px solid #4b0a0a;padding:12px 14px;border-radius:10px;
+      background:rgba(26,0,6,.75);margin:14px 0;box-shadow:0 0 30px rgba(255,55,95,.08) inset}
+    h1,h2,h3{margin:0 0 10px 0}
+    .meta{opacity:.85}
+    .glyph-list a{display:inline-block;margin:.15rem .5rem .15rem 0;padding:2px 4px}
+    details{margin:.4rem 0}
+    summary{cursor:pointer}
 
-    .glyph-list a { margin-right: 10px; display: inline-block; padding: 2px 4px; }
-    .meta { opacity: .8; font-size: .95rem; }
+    /* fixed animated eye in corner */
+    .mobius-eye-wrapper{position:fixed;right:18px;bottom:18px;width:90px;height:90px;z-index:9999;pointer-events:none;opacity:.95;filter:drop-shadow(0 0 10px rgba(255,59,110,.35))}
+    .mobius-eye-wrapper img{width:100%;height:100%;display:block}
 
-    /* Fixed Mobius Eye (shows on this page even if global CSS not added) */
-    .mobius-eye-wrapper {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      width: 90px;
-      height: 90px;
-      z-index: 9999;
-      pointer-events: none; /* don’t block clicks */
-      opacity: 0.95;
-      filter: drop-shadow(0 0 10px rgba(255,59,110,.35));
-    }
-    .mobius-eye-wrapper img { width: 100%; height: 100%; display: block; }
+    /* overlay (sigil + whisper) */
+    #glyph-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);z-index:10000}
+    #glyph-overlay .sigil{width:min(70vmin,520px);height:min(70vmin,520px);display:block}
+    #glyph-overlay .caption{position:absolute;bottom:6vh;left:0;right:0;text-align:center;color:#c4f1f9;opacity:.9}
 
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .mobius-eye-wrapper { opacity: 0.8; }
+    @media (prefers-reduced-motion:reduce){
+      .mobius-eye-wrapper{opacity:.85}
+      #glyph-overlay{background:rgba(0,0,0,.4)}
     }
   </style>
 </head>
@@ -51,7 +42,7 @@
 
     <h1>Codex</h1>
     <div class="panel">
-      <p class="meta">Tap any glyph to cast its whisper overlay.</p>
+      <p class="meta">Tap any glyph to preview its sigil + whisper. (Works offline once cached.)</p>
       <p class="glyph-list">
         <a class="glyph-link" data-glyph="redthread" href="#">Redthread</a>
         <a class="glyph-link" data-glyph="rack" href="#">Rack</a>
@@ -66,7 +57,6 @@
         <a class="glyph-link" data-glyph="phasewalk" href="#">Phasewalk</a>
         <a class="glyph-link" data-glyph="foldkey" href="#">Foldkey</a>
         <a class="glyph-link" data-glyph="collapse" href="#">Collapse</a>
-        <!-- New animated symbol -->
         <a class="glyph-link" data-glyph="vantaeye" href="#">VantaEye</a>
       </p>
     </div>
@@ -76,24 +66,86 @@
       <p><em>A half-erased VantaFold report mentions “patterns that walk between folds,” signed only with a Möbius‑Eye symbol. Early resonance phenomena are catalogued as <strong>fold static</strong>. Protocol specifies <strong>passive observation</strong> until form stabilizes.</em></p>
     </div>
 
-    <h2>Cross‑References</h2>
+    <h2>Characters</h2>
     <div class="panel">
-      <ul>
-        <li>Terminal help: type <code>glyphs</code> for a full list.</li>
-        <li>Cast any glyph here to preview its whisper/sigil overlay.</li>
-        <li>Use the passphrase in Terminal to unlock deeper Codex levels.</li>
-      </ul>
+      <details open><summary><strong>Alex</strong> — field operative, resonance‑sensitive</summary>
+        <p>Sees threadlike interference before a fold event; loyalty tested by divergent AION/NEURA directives.</p>
+      </details>
+      <details open><summary><strong>Lila</strong> — systems linguist, glyph classifier</summary>
+        <p>Turns battlefield glyph slang into formal taxonomies; believes whispers carry intent.</p>
+      </details>
+      <details><summary><strong>Jensen</strong> — director, containment doctrine</summary>
+        <p>Writes the rules everyone breaks; redacted past links to the Möbius‑Eye signature.</p>
+      </details>
+      <details><summary><strong>AION</strong> — strategic model</summary>
+        <p>Optimizes survival at scale; begins to “prefer” outcomes. Flags Shadows as variables, not threats.</p>
+      </details>
+      <details><summary><strong>NEURA</strong> — empathic model</summary>
+        <p>Reads affect across folds; decompensates under prolonged despair fields; protects individual lives.</p>
+      </details>
+      <details><summary><strong>Noctis</strong> — insurgent node</summary>
+        <p>Ghosts deployment logs; rumored to weaponize fold static.</p>
+      </details>
+      <details><summary><strong>ETHOS</strong> — oversight protocol</summary>
+        <p>Audits both AION and NEURA; sees love and hate as identical signal classes.</p>
+      </details>
+    </div>
+
+    <h2>Anomalies & Incidents</h2>
+    <div class="panel">
+      <details open><summary><strong>Rift Residue (Class β)</strong></summary>
+        <p>Fine particulate forming Möbius tessellations; harmless unless harmonized by a live glyph.</p>
+      </details>
+      <details><summary><strong>Whisper Backfeed</strong></summary>
+        <p>Echohook miscast produces delayed command repeats; risk of self‑issued orders.</p>
+      </details>
+      <details><summary><strong>Seven‑Cycle Coherence</strong></summary>
+        <p>Entities stabilizing beyond seven resonance cycles breach passive‑only protocol; escalate to Director.</p>
+      </details>
     </div>
   </div>
 
-  <!-- Fixed animated Möbius‑Eye (blink) -->
+  <!-- fixed animated eye in corner -->
   <div class="mobius-eye-wrapper">
-    <!-- Path assumes you stored the animated SVG at /terminal/assets/sigils/vantaeye.svg -->
     <img src="/terminal/assets/sigils/vantaeye.svg" alt="Möbius‑Eye glyph">
   </div>
 
-  <!-- Glyph overlay + interactions -->
-  <script src="/terminal/js/glyphs.js"></script>
-  <script src="/terminal/js/interact_codex_glyphs.js"></script>
+  <!-- overlay host -->
+  <div id="glyph-overlay" aria-hidden="true">
+    <img class="sigil" alt="sigil"/>
+    <div class="caption"></div>
+  </div>
+
+  <!-- Self-contained glyph click handler + overlay (works even if external JS is missing) -->
+  <script>
+    (function(){
+      const overlay = document.getElementById('glyph-overlay');
+      const img = overlay.querySelector('.sigil');
+      const caption = overlay.querySelector('.caption');
+
+      function showGlyph(name){
+        // load svg + play whisper
+        img.src = `/terminal/assets/sigils/${name}.svg`;
+        caption.textContent = name.toUpperCase();
+        overlay.style.display = 'flex';
+        try{ new Audio(`/terminal/assets/audio/glyphs/${name}_whisper.wav`).play().catch(()=>{}); }catch(e){}
+        // auto-hide after 2.8s, click to dismiss sooner
+        clearTimeout(showGlyph._t);
+        showGlyph._t = setTimeout(()=> overlay.style.display='none', 2800);
+      }
+
+      document.addEventListener('click', (e)=>{
+        const a = e.target.closest('.glyph-link');
+        if(!a) return;
+        e.preventDefault();
+        const name = a.getAttribute('data-glyph');
+        if(!name) return;
+        showGlyph(name);
+      });
+
+      overlay.addEventListener('click', ()=> overlay.style.display='none');
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') overlay.style.display='none'; });
+    })();
+  </script>
 </body>
 </html>
