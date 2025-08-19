@@ -5,3 +5,28 @@ header h1{margin:0 0 6px 0}nav a{color:#ff9ab0;margin:0 8px;text-decoration:none
 main{max-width:900px;margin:0 auto;padding:24px}code{background:#111827;color:#93c5fd;padding:2px 6px;border-radius:6px}a{color:#93c5fd}
 .bg-red-grid::after{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% 80%, rgba(255,55,95,.18), transparent 45%);pointer-events:none;animation:breath 3.2s ease-in-out infinite}
 @keyframes breath{0%,100%{opacity:.25}50%{opacity:.6}}
+/* Global Mobius Eye Glyph */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  background: url("../terminal/vantaeye.svg") no-repeat center center;
+  background-size: contain;
+  pointer-events: none; /* prevents blocking clicks */
+  z-index: 9999; /* keeps it above other elements */
+
+  /* Blinking animation */
+  animation: blinkEye 2s infinite;
+}
+
+@keyframes blinkEye {
+  0%, 90%, 100% {
+    opacity: 1;
+  }
+  45%, 55% {
+    opacity: 0;
+  }
+}
