@@ -1,64 +1,99 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Codex — Nexus Shadows World Matrix</title>
-<link rel="stylesheet" href="/terminal/css/codex.css"></head>
-<body>
-<header class="codex-header">
-  <a class="back" href="/terminal/">⬅ Terminal</a>
-  <h1>Codex — Nexus Shadows World Matrix</h1>
-  <div class="badge">Level: 1</div>
-</header>
-<main class="codex-main">
-  <section class="panel"><h2>Overview</h2>
-    <p>Field notes and redacted briefings. Each entry fits on one screen.</p>
-  </section>
-  <section class="grid">
-    <div class="card"><h3>Characters</h3><ul>
-      <li><a href="/terminal/codex_chars/alex_mercer.html">Alex Mercer</a></li>
-      <li><a href="/terminal/codex_chars/lila_chen.html">Lila Chen</a></li>
-      <li><a href="/terminal/codex_chars/dr_jensen.html">Dr. Jensen</a></li>
-      <li><a href="/terminal/codex_chars/aion.html">AION</a></li>
-      <li><a href="/terminal/codex_chars/neura.html">NEURA</a></li>
-      <li><a href="/terminal/codex_chars/noctis.html">Noctis</a></li>
-      <li><a href="/terminal/codex_chars/ethos.html">ETHOS</a></li>
-    </ul></div>
-    <div class="card"><h3>Glyphs (Complete)</h3><ul>
-      <li><a href="/terminal/codex_glyphs/redthread.html">Redthread</a></li>
-      <li><a href="/terminal/codex_glyphs/glassveil.html">Glassveil</a></li>
-      <li><a href="/terminal/codex_glyphs/edgewind.html">Edgewind</a></li>
-      <li><a href="/terminal/codex_glyphs/shardbind.html">Shardbind</a></li>
-      <li><a href="/terminal/codex_glyphs/skyhook.html">Skyhook</a></li>
-      <li><a href="/terminal/codex_glyphs/latticekey.html">Latticekey</a></li>
-      <li><a href="/terminal/codex_glyphs/talonswerve.html">Talonswerve</a></li>
-      <li><a href="/terminal/codex_glyphs/threadwake.html">Threadwake</a></li>
-      <li><a href="/terminal/codex_glyphs/echohook.html">Echohook</a></li>
-      <li><a href="/terminal/codex_glyphs/foldkey.html">Foldkey</a></li>
-      <li><a href="/terminal/codex_glyphs/phasewalk.html">Phasewalk</a></li>
-      <li><a href="/terminal/codex_glyphs/collapse.html">Collapse</a></li>
-    </ul></div>
-  </section>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Codex — Nexus of Shadows</title>
+  <!-- Global styles (grid background, base typography) -->
+  <link rel="stylesheet" href="/css/home.css">
+  <style>
+    /* Page-local styling */
+    body { font-family: "Courier New", monospace; color: #00ff99; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    .panel {
+      border: 1px solid #4b0a0a;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(26,0,6,.75);
+      margin: 14px 0;
+      box-shadow: 0 0 30px rgba(255,55,95,.08) inset;
+    }
+    h1, h2 { margin: 0 0 10px 0; }
+    a { color: #93c5fd; text-decoration: none; }
+    a:hover, a:focus { text-decoration: underline; }
 
-  <hr style="border:0;border-top:1px solid #4b0a0a;opacity:.6;margin:16px 0">
+    .glyph-list a { margin-right: 10px; display: inline-block; padding: 2px 4px; }
+    .meta { opacity: .8; font-size: .95rem; }
 
-  <section class="grid">
-    <div class="card"><h3>Anomalies in the Fold</h3><ul>
-      <li><a href="/terminal/codex_anomalies/self_casting_glyph.html">Self-Casting Glyph</a></li>
-      <li><a href="/terminal/codex_anomalies/jensen_vanish.html">Jensen’s Vanishing Timestamp</a></li>
-      <li><a href="/terminal/codex_anomalies/untranslated_whisper.html">Untranslated Whisper</a></li>
-      <li><a href="/terminal/codex_anomalies/borrowed_memory.html">Memory That Wasn’t Theirs</a></li>
-      <li><a href="/terminal/codex_anomalies/ethos_prediction.html">ETHOS’s Impossible Prediction</a></li>
-      <li><a href="/terminal/codex_anomalies/fractured_loop.html">Fractured Mobius Loop</a></li>
-      <li><a href="/terminal/codex_anomalies/hesitant_drone.html">Drone That Hesitated</a></li>
-      <li><a href="/terminal/codex_anomalies/null_codex_page.html">Null Codex Page</a></li>
-      <li><a href="/terminal/codex_anomalies/noctis_slip.html">Noctis’s Slip</a></li>
-      <li><a href="/terminal/codex_anomalies/persistent_glyph.html">Glyph That Won’t Forget</a></li>
-    </ul></div>
-  </section>
+    /* Fixed Mobius Eye (shows on this page even if global CSS not added) */
+    .mobius-eye-wrapper {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 90px;
+      height: 90px;
+      z-index: 9999;
+      pointer-events: none; /* don’t block clicks */
+      opacity: 0.95;
+      filter: drop-shadow(0 0 10px rgba(255,59,110,.35));
+    }
+    .mobius-eye-wrapper img { width: 100%; height: 100%; display: block; }
 
-  <section class="grid">
-    <div class="card">
-      <h3>World Map</h3>
-      <p><a href="/terminal/map/">View Anomalies on the Nexus Map</a></p>
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .mobius-eye-wrapper { opacity: 0.8; }
+    }
+  </style>
+</head>
+<body class="bg-red-grid">
+  <div class="wrap">
+    <p><a href="/">⬅ Home</a> • <a href="/terminal/">Terminal</a> • <a href="/about/">About</a></p>
+
+    <h1>Codex</h1>
+    <div class="panel">
+      <p class="meta">Tap any glyph to cast its whisper overlay.</p>
+      <p class="glyph-list">
+        <a class="glyph-link" data-glyph="redthread" href="#">Redthread</a>
+        <a class="glyph-link" data-glyph="rack" href="#">Rack</a>
+        <a class="glyph-link" data-glyph="glassveil" href="#">Glassveil</a>
+        <a class="glyph-link" data-glyph="edgewind" href="#">Edgewind</a>
+        <a class="glyph-link" data-glyph="skyhook" href="#">Skyhook</a>
+        <a class="glyph-link" data-glyph="latticekey" href="#">Latticekey</a>
+        <a class="glyph-link" data-glyph="shardbind" href="#">Shardbind</a>
+        <a class="glyph-link" data-glyph="echohook" href="#">Echohook</a>
+        <a class="glyph-link" data-glyph="talonswerve" href="#">Talonswerve</a>
+        <a class="glyph-link" data-glyph="threadwake" href="#">Threadwake</a>
+        <a class="glyph-link" data-glyph="phasewalk" href="#">Phasewalk</a>
+        <a class="glyph-link" data-glyph="foldkey" href="#">Foldkey</a>
+        <a class="glyph-link" data-glyph="collapse" href="#">Collapse</a>
+        <!-- New animated symbol -->
+        <a class="glyph-link" data-glyph="vantaeye" href="#">VantaEye</a>
+      </p>
     </div>
-  </section>
-</main>
-</body></html>
+
+    <h2>Filed Notes</h2>
+    <div class="panel">
+      <p><em>A half-erased VantaFold report mentions “patterns that walk between folds,” signed only with a Möbius‑Eye symbol. Early resonance phenomena are catalogued as <strong>fold static</strong>. Protocol specifies <strong>passive observation</strong> until form stabilizes.</em></p>
+    </div>
+
+    <h2>Cross‑References</h2>
+    <div class="panel">
+      <ul>
+        <li>Terminal help: type <code>glyphs</code> for a full list.</li>
+        <li>Cast any glyph here to preview its whisper/sigil overlay.</li>
+        <li>Use the passphrase in Terminal to unlock deeper Codex levels.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Fixed animated Möbius‑Eye (blink) -->
+  <div class="mobius-eye-wrapper">
+    <!-- Path assumes you stored the animated SVG at /terminal/assets/sigils/vantaeye.svg -->
+    <img src="/terminal/assets/sigils/vantaeye.svg" alt="Möbius‑Eye glyph">
+  </div>
+
+  <!-- Glyph overlay + interactions -->
+  <script src="/terminal/js/glyphs.js"></script>
+  <script src="/terminal/js/interact_codex_glyphs.js"></script>
+</body>
+</html>
