@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <defs>
+    <!-- Soft neon glow -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b1"/>
+      <feGaussianBlur stdDeviation="8" in="SourceGraphic" result="b2"/>
+      <feMerge>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Eyelid mask: we animate this rect to “blink” -->
+    <mask id="blinkMask">
+      <!-- White = visible, Black = hidden -->
+      <rect x="0" y="0" width="240" height="240" fill="white"/>
+      <!-- The eyelid: slides down briefly to cover the pupil -->
+      <rect id="lid" x="0" y="-120" width="240" height="240" fill="black"/>
+    </mask>
+
+    <style>
+      :root {
+        --stroke: #ff3b6e;      /* brand neon pink */
+        --accent: #9effc2;      /* mint caption accent */
+        --grid:   #3a0a12;      /* deep red grid line */
+      }
+
+      /* Global stroke look */
+      .sigil * {
+        stroke: var(--stroke);
+        stroke-width: 2.2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: url(#glow);
+      }
+
+      /* Slow “breath” pulsing of the loop */
+      .breath {
+        animation: breath 3.6s ease-in-out infinite;
+        transform-origin: 120px 120px;
+      }
+      @keyframes breath {
+        0%,100% { opacity: 0.95; }
+        50%     { opacity: 0.65; }
+      }
+
+      /* Blink: slide the lid down and up quickly; double-blink occasionally */
+      #lid {
+        animation:
+          blink 6.2s cubic-bezier(.2,.7,.2,1) infinite,
+          blink2 17s cubic-bezier(.2,.7,.2,1) infinite;
+      }
+      @keyframes blink {
+        /* down ~45%, closed at 47–49%, back up */
+        0%   { transform: translateY(0); }
+        44%  { transform: translateY(0); }
+        47%  { transform: translateY(135px); }
+        49%  { transform: translateY(0); }
+        100% { transform: translateY(0); }
+      }
+      @keyframes blink2 {
+        0%,68% { transform: translateY(0); }
+        70%    { transform: translateY(135px); }
+        72%    { transform: translateY(0); }
+        100%   { transform: translateY(0); }
+      }
+
+      /* Pupil shimmer (subtle) */
+      .pupil {
+        animation: shimmer 2.8s ease-in-out infinite;
+        transform-origin: 120px 120px;
+      }
+      @keyframes shimmer {
+        0%,100% { stroke-width: 2.2; }
+        50%     { stroke-width: 2.9; }
+      }
+
+      /* Respect reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        #lid, .breath, .pupil { animation: none !important; }
+      }
+    </style>
+  </defs>
+
+  <!-- Optional faint grid (ties into site aesthetic) -->
+  <g opacity="0.15" stroke="var(--grid)">
+    <path d="M0 120 H240"/>
+    <path d="M120 0 V240"/>
+  </g>
+
+  <!-- Möbius loop: two interlaced ribbons -->
+  <g class="sigil breath">
+    <path d="M40,120
+             C40,50 200,50 200,120
+             C200,190 40,190 40,120Z"/>
+    <path d="M60,120
+             C60,70 180,70 180,120
+             C180,170 60,170 60,120Z"/>
+  </g>
+
+  <!-- Eye outline -->
+  <g class="sigil">
+    <path d="M35,120
+             C75,70 165,70 205,120
+             C165,170 75,170 35,120Z"/>
+  </g>
+
+  <!-- Pupil + iris, masked by blinking lid -->
+  <g class="sigil pupil" mask="url(#blinkMask)">
+    <circle cx="120" cy="120" r="14"/>
+    <circle cx="120" cy="120" r="28" stroke-dasharray="6 8"/>
+  </g>
+</svg>
