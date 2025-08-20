@@ -1,29 +1,38 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexus Terminal</title>
-<link rel="stylesheet" href="/terminal/css/theme-base.css">
-<link rel="stylesheet" href="/terminal/css/glyphs.css">
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Nexus Terminal</title>
+  <link rel="stylesheet" href="/terminal/css/theme-base.css">
+  <link rel="stylesheet" href="/terminal/css/glyphs.css">
 </head>
 <body class="bg-red-grid">
-<div id="back-home"><a id="exitBtn" class="toolbar-btn" href="/">⬅ Exit</a></div>
-<div id="about-link"><a id="aboutBtn" class="toolbar-btn" href="/terminal/about/">About</a></div>
-<div id="codex-link"><a id="codexBtn" class="toolbar-btn" href="/terminal/codex/">◇ Codex</a></div>
-<div class="level-tag">Level: <span id="levelTag">Locked</span></div>
-<div id="lock-screen">
-  <div>Enter passphrase to access Nexus Terminal:</div>
-  <input type="password" id="passphrase" placeholder="awaken" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" autofocus>
-  <button id="unlockBtn">Unlock</button>
-</div>
-<input id="cmdline" type="text" inputmode="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
-<div id="terminal" tabindex="0" role="textbox" aria-label="Terminal output"></div>
-<script src="/terminal/js/glyphs.js"></script>
-<script src="/terminal/js/terminal.js"></script>
-<script>
-const observer=new MutationObserver(()=>{
-  const lvl=document.body.getAttribute('data-level')||"1";
-  document.getElementById('levelTag').textContent=lvl;
-  document.getElementById('codexBtn').setAttribute('href','/terminal/codex/?level='+lvl);
-});
-observer.observe(document.body,{attributes:true,attributeFilter:['data-level']});
-</script>
-<script src="/terminal/js/force-nav.js"></script>
-</body></html>
+  <div class="toolbar">
+    <a href="/">⬅ Home</a>
+    <a href="/about/">About</a>
+    <a href="/codex/">◇ Codex</a>
+  </div>
+
+  <div id="lock-screen">
+    <div>Enter passphrase to access Nexus Terminal:</div>
+    <input type="password" id="passphrase" placeholder="awaken" autocomplete="off"
+           autocapitalize="none" autocorrect="off" spellcheck="false" autofocus>
+    <button id="unlockBtn">Unlock</button>
+  </div>
+
+  <input id="cmdline" type="text" inputmode="text" autocomplete="off"
+         autocapitalize="none" autocorrect="off" spellcheck="false">
+
+  <div id="terminal" tabindex="0" role="textbox" aria-label="Terminal output"></div>
+
+  <div id="glyph-overlay"></div>
+
+  <!-- 3D FX panel (hidden until first cast) -->
+  <iframe id="fx3d" src="/terminal/3d/"
+          style="position:fixed;left:0;right:0;bottom:0;height:44vh;border:0;display:none;z-index:3"></iframe>
+
+  <script src="/terminal/js/glyphs.js"></script>
+  <script src="/terminal/js/terminal.js"></script>
+</body>
+</html>
