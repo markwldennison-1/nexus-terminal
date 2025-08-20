@@ -1,13 +1,25 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Glyph Cast — 3D</title>
   <style>
-    html,body{margin:0;height:100%;background:#000;overflow:hidden}
-    #c{width:100%;height:100%;display:block}
-    .hud{position:fixed;left:10px;bottom:10px;color:#00ff99;font-family:Courier New,monospace;opacity:.85}
+    /* Full-viewport canvas + dark bg */
+    html, body { margin:0; padding:0; height:100%; background:#000; overflow:hidden; }
+    #c { position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+
+    /* Minimal HUD hint */
+    .hud{
+      position:fixed; left:10px; bottom:10px; color:#00ff99;
+      font-family: "Courier New", monospace; opacity:.85; user-select:none;
+      text-shadow: 0 0 6px rgba(0,255,153,.35);
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .hud { opacity:.75 }
+    }
   </style>
 </head>
 <body>
@@ -18,66 +30,100 @@
     import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
     import { GLTFLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
 
+    // Renderer / Scene / Camera
     const canvas = document.getElementById('c');
-    const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
-    const DPR = Math.min(window.devicePixelRatio||1, 1.5);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:false });
+    const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
     renderer.setPixelRatio(DPR);
 
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
+
     const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 200);
     camera.position.set(0, 1.2, 4);
 
+    // Lights
     const key = new THREE.DirectionalLight(0xffffff, 1.0); key.position.set(2,3,4);
-    scene.add(key, new THREE.AmbientLight(0x404040, 0.7));
+    const fill = new THREE.AmbientLight(0x404040, 0.7);
+    scene.add(key, fill);
 
-    function resize(){ const w=canvas.clientWidth,h=canvas.clientHeight;
-      renderer.setSize(w,h,false); camera.aspect=(w||1)/(h||1); camera.updateProjectionMatrix(); }
-    window.addEventListener('resize', resize, {passive:true}); resize();
+    // Robust resize (fixes black canvas when clientWidth==0)
+    function resize(){
+      const w = Math.max(window.innerWidth,  320);
+      const h = Math.max(window.innerHeight, 320);
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize, { passive:true }); resize();
 
-    // ground grid
+    // Grid
     const grid = new THREE.GridHelper(20, 20, 0xff375f, 0x3a0a12);
-    grid.position.y=-1; scene.add(grid);
+    grid.position.y = -1;
+    scene.add(grid);
 
-    // drone model (fallback to a box)
-    const group = new THREE.Group(); scene.add(group);
+    // Group + drone (fallback to box if model not found)
+    const group = new THREE.Group();
+    scene.add(group);
     let drone;
     new GLTFLoader().load('/terminal/assets/models/drone.glb',
-      g => { drone=g.scene; drone.scale.set(1.2,1.2,1.2); group.add(drone); },
+      g => { drone = g.scene; drone.scale.set(1.2,1.2,1.2); group.add(drone); },
       undefined,
-      () => { const m=new THREE.Mesh(
-               new THREE.BoxGeometry(1,0.35,1),
-               new THREE.MeshStandardMaterial({color:0x222831, metalness:0.25, roughness:0.6})
-             ); drone=m; group.add(drone); }
+      () => {
+        const m = new THREE.Mesh(
+          new THREE.BoxGeometry(1,0.35,1),
+          new THREE.MeshStandardMaterial({ color:0x222831, metalness:0.25, roughness:0.6 })
+        );
+        drone = m; group.add(drone);
+      }
     );
 
-    // sigil ring + shockwave
-    const ring = new THREE.Mesh(new THREE.RingGeometry(0.45,0.48,64),
-      new THREE.MeshBasicMaterial({color:0xff3b6e, transparent:true, opacity:0}));
-    ring.rotation.x = -Math.PI/2; ring.position.y=0.2; scene.add(ring);
+    // Sigil ring + shockwave
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(0.45,0.48,64),
+      new THREE.MeshBasicMaterial({ color:0xff3b6e, transparent:true, opacity:0 })
+    );
+    ring.rotation.x = -Math.PI/2; ring.position.y = 0.2; scene.add(ring);
 
-    const shock = new THREE.Mesh(new THREE.RingGeometry(0.5,0.55,64),
-      new THREE.MeshBasicMaterial({color:0xff3b6e, transparent:true, opacity:0}));
-    shock.rotation.x = -Math.PI/2; shock.position.y=0.01; scene.add(shock);
+    const shock = new THREE.Mesh(
+      new THREE.RingGeometry(0.5,0.55,64),
+      new THREE.MeshBasicMaterial({ color:0xff3b6e, transparent:true, opacity:0 })
+    );
+    shock.rotation.x = -Math.PI/2; shock.position.y = 0.01; scene.add(shock);
 
-    // particles
-    const N=200, pGeo=new THREE.BufferGeometry(), pPos=new Float32Array(N*3), pVel=new Float32Array(N*3);
-    const pMat=new THREE.PointsMaterial({color:0xff3b6e, size:0.02, transparent:true, opacity:0});
-    const burst=new THREE.Points(pGeo,pMat); scene.add(burst);
+    // Particles
+    const N = 200, pGeo = new THREE.BufferGeometry();
+    const pPos = new Float32Array(N*3), pVel = new Float32Array(N*3);
+    const pMat = new THREE.PointsMaterial({ color:0xff3b6e, size:0.02, transparent:true, opacity:0 });
+    const burst = new THREE.Points(pGeo, pMat);
+    scene.add(burst);
+
     function resetParticles(){
-      for(let i=0;i<N;i++){ pPos[i*3]=0; pPos[i*3+1]=0.2; pPos[i*3+2]=0;
-        const a=Math.random()*Math.PI*2, r=0.3+Math.random()*0.3;
-        pVel[i*3]=Math.cos(a)*r; pVel[i*3+1]=Math.random()*0.6; pVel[i*3+2]=Math.sin(a)*r; }
+      for(let i=0;i<N;i++){
+        pPos[i*3+0]=0; pPos[i*3+1]=0.2; pPos[i*3+2]=0;
+        const a = Math.random()*Math.PI*2, r = 0.3 + Math.random()*0.3;
+        pVel[i*3+0]=Math.cos(a)*r; pVel[i*3+1]=Math.random()*0.6; pVel[i*3+2]=Math.sin(a)*r;
+      }
       pGeo.setAttribute('position', new THREE.BufferAttribute(pPos,3));
-    } resetParticles();
+      pGeo.attributes.position.needsUpdate = true;
+    }
+    resetParticles();
 
-    // state
+    // State
     let t=0, casting=false, destroying=false, alpha=1, currentGlyph='redthread';
-    function playWhisper(name){ try{ new Audio(`/terminal/assets/audio/glyphs/${name}_whisper.wav`).play().catch(()=>{});}catch(e){} }
     function setAlpha(obj,a){
-      obj?.traverse?.(n=>{ if(n.material){ n.material.transparent=true; n.material.opacity=a; }});
-      if(obj?.material){ obj.material.transparent=true; obj.material.opacity=a; }
+      if(!obj) return;
+      if(obj.traverse){
+        obj.traverse(n=>{ if(n.material){ n.material.transparent=true; n.material.opacity=a; } });
+      } else if (obj.material){
+        obj.material.transparent = true; obj.material.opacity = a;
+      }
+    }
+    function playWhisper(name){
+      try{ new Audio(`/terminal/assets/audio/glyphs/${name}_whisper.wav`).play().catch(()=>{}); }catch(e){}
     }
 
+    // Cast
     function cast(glyph='redthread'){
       currentGlyph=glyph; t=0; casting=true; destroying=false; alpha=1;
       ring.material.opacity=0; ring.scale.set(1,1,1);
@@ -86,47 +132,59 @@
       if(drone){ setAlpha(drone,1); drone.rotation.set(0,0,0); drone.position.set(0,0,0); }
       playWhisper(currentGlyph);
     }
-    canvas.addEventListener('pointerdown', ()=>cast(currentGlyph), {passive:true});
 
-    // receive glyph name from parent
-    window.addEventListener('message', e=>{ if(e?.data?.type==='cast' && e.data.glyph){ cast(e.data.glyph); } });
+    // Pointer to cast (makes sure something happens on click)
+    window.addEventListener('pointerdown', ()=>cast(currentGlyph), { passive:true });
 
-    // loop
-    const clock=new THREE.Clock();
+    // Message from parent (Terminal iframe)
+    window.addEventListener('message', (e)=>{
+      if(e?.data?.type==='cast' && e.data.glyph){ cast(e.data.glyph); }
+    });
+
+    // Animation loop
+    const clock = new THREE.Clock();
     function loop(){
-      const dt=clock.getDelta(); t+=dt; group.rotation.y+=dt*0.25;
+      const dt = clock.getDelta();
+      t += dt;
+
+      group.rotation.y += dt*0.25;
 
       if(casting){
-        const charge=Math.min(t/0.8,1);
-        ring.material.opacity=0.12+0.28*Math.sin(charge*Math.PI);
-        ring.scale.set(1+charge*0.6,1+charge*0.6,1);
+        const charge = Math.min(t/0.8, 1);
+        ring.material.opacity = 0.12 + 0.28*Math.sin(charge*Math.PI);
+        ring.scale.set(1+charge*0.6, 1+charge*0.6, 1);
 
         if(t>0.8){
-          shock.material.opacity=Math.max(0,0.6-(t-0.8)*0.8);
-          const s=1+(t-0.8)*2.0; shock.scale.set(s,s,1);
-          pMat.opacity=Math.max(0,0.9-(t-0.8)*1.1);
+          shock.material.opacity = Math.max(0, 0.6 - (t-0.8)*0.8);
+          const s = 1 + (t-0.8)*2.0; shock.scale.set(s,s,1);
+          pMat.opacity = Math.max(0, 0.9 - (t-0.8)*1.1);
           for(let i=0;i<N;i++){
-            pPos[i*3]+=pVel[i*3]*dt*1.2;
+            pPos[i*3+0]+=pVel[i*3+0]*dt*1.2;
             pPos[i*3+1]+=pVel[i*3+1]*dt*1.2 - dt*0.7;
             pPos[i*3+2]+=pVel[i*3+2]*dt*1.2;
           }
-          pGeo.attributes.position.needsUpdate=true;
+          pGeo.attributes.position.needsUpdate = true;
         }
-        if(t>1.0 && !destroying) destroying=true;
+        if(t>1.0 && !destroying) destroying = true;
         if(t>2.6){ casting=false; pMat.opacity=0; ring.material.opacity=0; shock.material.opacity=0; }
       }
 
       if(destroying && drone){
         const j=(Math.random()-0.5)*0.02;
-        drone.rotation.x+=j; drone.rotation.y+=j; drone.rotation.z+=j;
-        drone.position.y+=0.002;
-        alpha=Math.max(0,alpha-dt*0.7); setAlpha(drone,alpha);
+        drone.rotation.x += j; drone.rotation.y += j; drone.rotation.z += j;
+        drone.position.y += 0.002;
+        alpha = Math.max(0, alpha - dt*0.7);
+        setAlpha(drone, alpha);
         if(alpha<=0) destroying=false;
       }
 
-      renderer.render(scene,camera); requestAnimationFrame(loop);
+      renderer.render(scene, camera);
+      requestAnimationFrame(loop);
     }
     loop();
+
+    // Optional: visual-only auto-cast once after load (no audio autoplay on iOS)
+    // setTimeout(()=>{ try{ cast('redthread'); }catch(e){} }, 500);
   </script>
 </body>
 </html>

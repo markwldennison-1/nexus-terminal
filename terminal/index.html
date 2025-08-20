@@ -1,37 +1,64 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Nexus Terminal</title>
+  <!-- Your global terminal styles -->
   <link rel="stylesheet" href="/terminal/css/theme-base.css">
   <link rel="stylesheet" href="/terminal/css/glyphs.css">
 </head>
 <body class="bg-red-grid">
+  <!-- Top toolbar -->
   <div class="toolbar">
     <a href="/">⬅ Home</a>
     <a href="/about/">About</a>
     <a href="/codex/">◇ Codex</a>
   </div>
 
-  <div id="lock-screen">
+  <!-- Lock screen -->
+  <div id="lock-screen" class="panel-lock">
     <div>Enter passphrase to access Nexus Terminal:</div>
-    <input type="password" id="passphrase" placeholder="awaken" autocomplete="off"
-           autocapitalize="none" autocorrect="off" spellcheck="false" autofocus>
+    <input
+      type="password"
+      id="passphrase"
+      placeholder="awaken"
+      autocomplete="off"
+      autocapitalize="none"
+      autocorrect="off"
+      spellcheck="false"
+      inputmode="text"
+    />
     <button id="unlockBtn">Unlock</button>
   </div>
 
-  <input id="cmdline" type="text" inputmode="text" autocomplete="off"
-         autocapitalize="none" autocorrect="off" spellcheck="false">
+  <!-- Hidden command line input (focusable, for mobile too) -->
+  <input
+    id="cmdline"
+    type="text"
+    inputmode="text"
+    autocomplete="off"
+    autocapitalize="none"
+    autocorrect="off"
+    spellcheck="false"
+    aria-label="Command line"
+  />
 
+  <!-- Terminal output -->
   <div id="terminal" tabindex="0" role="textbox" aria-label="Terminal output"></div>
 
+  <!-- 2D glyph overlay host (if your GlyphEngine uses it) -->
   <div id="glyph-overlay"></div>
 
   <!-- 3D FX panel (hidden until first cast) -->
-  <iframe id="fx3d" src="/terminal/3d/"
-          style="position:fixed;left:0;right:0;bottom:0;height:44vh;border:0;display:none;z-index:3"></iframe>
+  <iframe
+    id="fx3d"
+    src="/terminal/3d/index.html"
+    style="position:fixed;left:0;right:0;bottom:0;height:44vh;border:0;display:none;z-index:3"
+    title="3D Glyph Cast"
+  ></iframe>
 
+  <!-- Scripts -->
   <script src="/terminal/js/glyphs.js"></script>
   <script src="/terminal/js/terminal.js"></script>
 </body>
