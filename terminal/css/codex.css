@@ -6,3 +6,13 @@ body{margin:0;font-family:'Courier New',monospace;background:#000 url('/terminal
 .codex-main{max-width:1100px;margin:0 auto;padding:16px}.panel{border:1px solid var(--border);padding:12px 14px;border-radius:10px;background:rgba(26,0,6,.75);margin:14px 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:14px 0}.card{border:1px solid var(--border);padding:12px;border-radius:10px;background:rgba(26,0,6,.7)}
 .card h3{margin:6px 0 10px 0}a{color:#93c5fd}
+.glyph-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; /* makes sure label is above spinning svg */
+  color: white;
+  font-size: 1.2em;
+  text-shadow: 0 0 5px black;
+}
